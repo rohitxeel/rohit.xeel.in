@@ -1,6 +1,6 @@
 :root {
-    --bg: #0f1724;
-    --card: #0b1220;
+    --bg: #9bb1d4;
+    --card: #3064cd;
     --accent: #4f46e5;
     --muted: #9aa4b2;
     --glass: rgba(255, 255, 255, 0.03);
@@ -13,7 +13,7 @@
 body {
     margin: 0;
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(180deg, #0b1220 0%, #071024 100%);
+    background: linear-gradient(180deg, #042d3b 0%, #012126 100%);
     color: #e6eef8;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -54,8 +54,8 @@ body {
 
 .btn {
     display: inline-block;
-    background: var(--accent);
-    color: white;
+    background: var(--glass);
+    color: rgb(255, 255, 255);
     padding: 10px 14px;
     border-radius: 8px;
     text-decoration: none;
@@ -64,8 +64,8 @@ body {
 }
 
 .btn-outline {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.06)
+    background: t;
+    border: 2px solid rgba(255, 255, 255, 0.06)
 }
 
 .quick-stats {
@@ -103,6 +103,16 @@ body {
     text-align: center;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    /* Lift and slightly enlarge */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8);
+    /* Deeper shadow */
+    border-color: rgba(255, 255, 255, 0.2);
+    /* Highlight border */
 }
 
 .profile-photo {
@@ -110,9 +120,13 @@ body {
     height: 140px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.06);
+    border: 3px solid rgb(244, 237, 237);
+    /* Black border */
+    box-shadow: 0 4px 12px rgba(1, 1, 1, 0.4);
+    /* Shadow effect */
     display: block;
     margin: 0 auto 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-card h2 {
@@ -151,7 +165,7 @@ body {
 
 .chips span {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.059);
     padding: 8px 10px;
     border-radius: 999px;
     margin: 6px 6px 0;
@@ -163,17 +177,26 @@ body {
     background: rgba(255, 255, 255, 0.02);
     padding: 16px;
     border-radius: 10px;
-    margin-bottom: 14px
+    margin-bottom: 14px;
+    border: 1.8px solid rgb(11, 11, 11);
+    /* White border */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* Soft shadow for depth */
 }
 
-.project h4 {
-    margin: 0 0 8px
+.project {
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+    transform-style: preserve-3d;
 }
 
-.project .meta {
-    color: var(--muted);
-    margin-top: 8px;
-    font-size: 13px
+.project:hover {
+    transform: perspective(600px) rotateX(-2deg) rotateY(2deg) scale(1);
+    box-shadow: 0 15px 30px rgba(242, 238, 238, 0.233);
+    border-color: rgba(243, 243, 243, 0.2);
+    -webkit-transform: perspective(600px) rotateX(-2deg) rotateY(2deg) scale(1);
+    -moz-transform: perspective(600px) rotateX(-2deg) rotateY(2deg) scale(1);
+    -ms-transform: perspective(600px) rotateX(-2deg) rotateY(2deg) scale(1);
+    -o-transform: perspective(600px) rotateX(-2deg) rotateY(2deg) scale(1);
 }
 
 
@@ -201,6 +224,11 @@ body {
 
 .contact-form button {
     margin-top: 10px
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
 }
 
 
