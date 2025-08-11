@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rohit Kumar — Portfolio</title>
+
+    <meta name="description" content="Rohit Kumar — Data Science student & web developer (B.Tech CSE, Lovely Professional University)" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header class="hero">
+        <div class="container hero-grid">
+            <div class="hero-left">
+                <h1>Rohit Kumar</h1>
+                <p class="subtitle">Data Science Student • Web Developer • Prompt-engineering & Cloud/Hadoop enthusiast</p>
+                <p class="lead">
+                    Currently pursuing B.Tech (CSE) at Lovely Professional University (2022–2026), specializing in Data Science. I build data-driven projects, work with Hadoop ecosystem (HDFS / Hive / HBase), and craft advanced prompts for model reasoning.
+                </p>
+
+                <div class="cta-row">
+                    <a class="btn" href="#projects">See Projects</a>
+                    <a class="btn btn-outline" href="#contact">Contact</a>
+                </div>
+
+                <div class="quick-stats">
+                    <div><strong>Degree</strong><span>B.Tech CSE (2022–2026)</span></div>
+                    <div><strong>Specialization</strong><span>Data Science</span></div>
+                    <div><strong>Focus</strong><span>Hadoop, Hive, HBase, Prompt Engineering</span></div>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="profile-card">
+                    <img src="pp.jpg" alt="Profile photo" class="profile-photo" />
+                    <h2>Rohit Kumar</h2>
+                    <p class="muted">B.Tech CSE — Lovely Professional University</p>
+                    <ul class="contact-list">
+                        <!-- Add Font Awesome CDN in your <head> -->
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+                        <!-- Centered contact icons -->
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="mailto:rohit.xeel@gmail.com" target="_blank" style="margin: 0 15px; color: inherit; text-decoration: none; font-size: 28px;">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://github.com/rohitxeel" target="_blank" style="margin: 0 15px; color: inherit; text-decoration: none; font-size: 28px;">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/-rohitkumarsingh/" target="_blank" style="margin: 0 15px; color: inherit; text-decoration: none; font-size: 28px;">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+
+
+                    </ul>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about" class="section">
+            <h3>About</h3>
+            <p>
+                I'm Rohit Kumar, a passionate Data Science student at Lovely Professional University (Batch 2022–2026) with a strong interest in distributed data systems, big data analytics, and AI-driven reasoning. I enjoy building tools and projects that bridge the
+                gap between large-scale data processing and intelligent decision-making.
+            </p>
+
+            <ul>
+                <li>Working extensively with Hadoop HDFS, MapReduce, Hive, and HBase for big data storage, processing, and querying.</li>
+                <li>Designing prompts and evaluation frameworks for advanced AI models, with a special focus on mathematical reasoning, symbolic verification, and complex problem-solving.</li>
+                <li>Exploring model optimization and data pipeline efficiency to deliver faster, more accurate results.</li>
+                <li>Constantly experimenting with scalable architectures, data engineering workflows, and AI-driven analytics to create practical and future-ready solutions.</li>
+            </ul>
+
+        </section>
+
+        <section id="skills" class="section">
+            <h3>Skills</h3>
+            <div class="chips">
+                <span>Python</span><span>SQL</span><span>Hadoop / HDFS</span><span>Hive</span><span>HBase</span>
+                <span>Linux</span><span>Data Science</span><span>Prompt Engineering</span><span>React / HTML / CSS</span>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h3>Selected Projects</h3>
+
+            <article class="project">
+                <h4>Cloud Computing Course Summaries & Exam Prep</h4>
+                <p>
+                    Created weekly, exam-style summaries and concept maps for a 12-week Cloud Computing course using canonical textbooks (Buyya et al., Shroff, Sosinsky, Krutz). Focused on MCQ/assignment patterns and high-yield revision notes.
+                </p>
+                <p class="meta">Tech: Markdown, LaTeX, Documentation</p>
+            </article>
+
+            <article class="project">
+                <h4>Hadoop & HDFS Windows Guide</h4>
+                <p>
+                    Step-wise tutorial and command collection for installing and using Hadoop (including HDFS, MapReduce, YARN) on Windows 11. Includes example scripts and sample datasets to practice on a Windows setup.
+                </p>
+                <p class="meta">Tech: Hadoop, Windows 11, Batch scripts</p>
+            </article>
+
+            <article class="project">
+                <h4>Prompt Engineering & Math Reasoning Evaluation</h4>
+                <p>
+                    Developed and evaluated advanced prompts for large models focused on mathematical reasoning verification. Included LaTeX-aware evaluation, symbolic reasoning tests, and step-by-step chain-of-thought style verification.
+                </p>
+                <p class="meta">Tech: Prompt Design, LaTeX, Evaluation frameworks</p>
+            </article>
+        </section>
+
+        <section id="education" class="section">
+            <h3>Education</h3>
+            <ul class="edu-list">
+                <li>
+                    <strong>B.Tech — Computer Science & Engineering</strong>
+                    <div>Lovely Professional University, Punjab (2022 — 2026) — Specialization: Data Science</div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="contact" class="section">
+            <h3>Contact</h3>
+            <p>If you'd like to collaborate or want source code for any project, reach out.</p>
+
+            <form id="contact-form" class="contact-form" action="#" onsubmit="return handleContact(event)">
+                <label>
+          <span>Name</span>
+          <input type="text" id="cf-name" required />
+        </label>
+                <label>
+          <span>Email</span>
+          <input type="email" id="cf-email" required />
+        </label>
+                <label>
+          <span>Message</span>
+          <textarea id="cf-message" rows="4" required></textarea>
+        </label>
+                <button class="btn" type="submit">Send message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <small>© Rohit Kumar — B.Tech CSE, Lovely Professional University</small>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
