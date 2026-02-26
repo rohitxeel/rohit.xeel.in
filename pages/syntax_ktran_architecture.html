@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syntax-Aware K-Tran Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e3a5f;
+    --accent1: #00c8ff;
+    --accent2: #4fffb0;
+    --accent3: #ff6b6b;
+    --accent4: #ffd166;
+    --text: #e2e8f0;
+    --text-dim: #7a8fa6;
+    --glow1: rgba(0,200,255,0.15);
+    --glow2: rgba(79,255,176,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  header::after {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent1), transparent);
+    margin: 16px auto 0;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent1);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #fff;
+    line-height: 1.3;
+  }
+  h1 span { color: var(--accent1); }
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* PIPELINE FLOW */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 36px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .pipe-step {
+    flex: 1;
+    min-width: 120px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 10px;
+    text-align: center;
+    position: relative;
+    animation: fadeUp 0.5s ease both;
+  }
+  .pipe-step:nth-child(1) { animation-delay: 0.1s; }
+  .pipe-step:nth-child(3) { animation-delay: 0.2s; }
+  .pipe-step:nth-child(5) { animation-delay: 0.3s; }
+  .pipe-step:nth-child(7) { animation-delay: 0.4s; }
+  .pipe-step:nth-child(9) { animation-delay: 0.5s; }
+
+  .pipe-step .step-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .pipe-step .step-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+  }
+  .pipe-step .step-name {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 2px;
+    color: var(--text);
+  }
+
+  .pipe-step.s1 { border-color: #334; }
+  .pipe-step.s2 { border-color: var(--accent1); box-shadow: 0 0 16px var(--glow1); }
+  .pipe-step.s3 { border-color: #5a3e7a; }
+  .pipe-step.s4 { border-color: var(--accent2); box-shadow: 0 0 16px var(--glow2); }
+  .pipe-step.s5 { border-color: var(--accent4); box-shadow: 0 0 12px rgba(255,209,102,0.12); }
+
+  .pipe-arrow {
+    color: var(--border);
+    font-size: 20px;
+    padding: 0 4px;
+    flex-shrink: 0;
+    color: var(--accent1);
+    opacity: 0.5;
+  }
+
+  /* MAIN DIAGRAM GRID */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .card {
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .card-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* INPUT CARD */
+  .card-input { border-color: #2a3a4a; animation-delay: 0.1s; }
+  .card-input .card-title .dot { background: #5a7a9a; }
+
+  .input-steps { display: flex; flex-direction: column; gap: 8px; }
+  .input-step {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 10px 12px;
+    border-left: 3px solid #2a4a6a;
+  }
+  .input-step .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    min-width: 16px;
+    margin-top: 1px;
+  }
+  .input-step .content {}
+  .input-step .title { font-size: 12px; font-weight: 600; }
+  .input-step .desc { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+  /* CORE CARD - center */
+  .card-core {
+    border-color: var(--accent1);
+    box-shadow: 0 0 30px var(--glow1), inset 0 0 30px rgba(0,200,255,0.03);
+    grid-row: 1 / 3;
+    animation-delay: 0.2s;
+  }
+  .card-core .card-title .dot { background: var(--accent1); box-shadow: 0 0 8px var(--accent1); }
+  .card-core .card-title { color: var(--accent1); }
+
+  .roberta-box {
+    background: linear-gradient(135deg, #0d1f3c, #0a1628);
+    border: 1px solid #1e4a7a;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .roberta-box .rb-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent1);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .roberta-box .rb-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .transformer-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .tl {
+    background: var(--surface2);
+    border-radius: 5px;
+    padding: 8px 12px;
+    border: 1px solid #1e3a5f;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tl-icon { font-size: 14px; flex-shrink: 0; }
+  .tl-name { font-weight: 600; font-size: 11px; }
+  .tl-desc { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+
+  .tl.syntax {
+    border-color: var(--accent2);
+    background: rgba(79,255,176,0.05);
+  }
+  .tl.syntax .tl-name { color: var(--accent2); }
+
+  .tl.attn { border-color: #3a5a9a; }
+  .tl.attn .tl-name { color: #7ab0ff; }
+
+  .tl.ffn { border-color: #3a3a5a; }
+  .tl.ffn .tl-name { color: #a0a0d0; }
+
+  .embed-badge {
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    border-radius: 4px;
+    padding: 6px;
+    border: 1px dashed #2a3a4a;
+  }
+
+  /* SYNTAX CARD */
+  .card-syntax { border-color: #2a4a3a; animation-delay: 0.3s; }
+  .card-syntax .card-title .dot { background: var(--accent2); }
+  .card-syntax .card-title { color: var(--accent2); }
+
+  .dep-tree {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #1a3a2a;
+    margin-bottom: 12px;
+    line-height: 1.8;
+    color: #7ab0aa;
+  }
+  .dep-tree .word { color: var(--accent2); font-weight: 600; }
+  .dep-tree .rel { color: var(--text-dim); font-size: 10px; }
+
+  .bias-matrix {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    margin-bottom: 10px;
+  }
+  .bm-cell {
+    aspect-ratio: 1;
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5);
+  }
+  .bm-cell.hi { background: rgba(79,255,176,0.5); color: #fff; font-weight: 700; }
+  .bm-cell.med { background: rgba(79,255,176,0.2); }
+  .bm-cell.lo { background: rgba(79,255,176,0.05); }
+
+  .matrix-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* OUTPUT CARD */
+  .card-output { border-color: #4a3a1a; animation-delay: 0.15s; }
+  .card-output .card-title .dot { background: var(--accent4); }
+  .card-output .card-title { color: var(--accent4); }
+
+  .head-box {
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid;
+  }
+  .head-box.ate { border-color: #4a6a3a; }
+  .head-box.asc { border-color: #4a3a6a; }
+  .head-box .hb-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .head-box.ate .hb-title { color: var(--accent2); }
+  .head-box.asc .hb-title { color: #c07aff; }
+  .head-box .hb-sub { font-size: 11px; color: var(--text-dim); margin-bottom: 8px; }
+
+  .bio-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .bio-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-weight: 600;
+  }
+  .bio-tag.B { background: rgba(79,255,176,0.2); color: var(--accent2); border: 1px solid var(--accent2); }
+  .bio-tag.I { background: rgba(79,255,176,0.1); color: var(--accent2); border: 1px solid rgba(79,255,176,0.4); }
+  .bio-tag.O { background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid #2a3a4a; }
+
+  .sent-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .sent-tag {
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 3px 10px;
+  }
+  .sent-tag.pos { background: rgba(79,255,176,0.15); color: var(--accent2); border: 1px solid var(--accent2); }
+  .sent-tag.neg { background: rgba(255,107,107,0.15); color: var(--accent3); border: 1px solid var(--accent3); }
+  .sent-tag.neu { background: rgba(255,209,102,0.15); color: var(--accent4); border: 1px solid var(--accent4); }
+
+  /* LOSS / TRAINING CARD */
+  .card-training {
+    grid-column: 1 / 2;
+    border-color: #3a2a1a;
+    animation-delay: 0.4s;
+  }
+  .card-training .card-title .dot { background: var(--accent3); }
+  .card-training .card-title { color: var(--accent3); }
+
+  .loss-formula {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #3a2a1a;
+    text-align: center;
+    margin-bottom: 12px;
+    color: #ffb07a;
+    line-height: 1.8;
+  }
+  .loss-formula span { color: var(--accent3); font-weight: 600; }
+  .loss-formula .eq { color: var(--text); }
+
+  .opt-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+  .opt-badge {
+    font-size: 10px;
+    background: var(--surface2);
+    border: 1px solid #3a3a4a;
+    border-radius: 20px;
+    padding: 3px 10px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* METRICS CARD */
+  .card-metrics {
+    grid-column: 3 / 4;
+    border-color: #2a3a4a;
+    animation-delay: 0.45s;
+  }
+  .card-metrics .card-title .dot { background: var(--accent1); }
+  .card-metrics .card-title { color: var(--accent1); }
+
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid #1a2a3a;
+    font-size: 12px;
+  }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-name { color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+  .metric-bar-wrap { flex: 1; margin: 0 10px; height: 4px; background: #1a2a3a; border-radius: 2px; }
+  .metric-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent1), var(--accent2)); }
+  .metric-val { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent1); }
+
+  /* CONNECTOR LINES */
+  .connectors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .conn-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+  }
+  .conn-arrow { color: var(--accent1); opacity: 0.6; }
+
+  /* FIGURE CAPTION */
+  .caption {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 8px;
+    border-top: 1px solid #1a2a3a;
+    padding-top: 16px;
+  }
+  .caption strong { color: var(--text); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="tag">Architecture Diagram · Formal Visualization</div>
+    <h1>Syntax-Aware <span>K-Tran</span> Transformer</h1>
+    <div class="subtitle">Aspect-Based Sentiment Analysis · Multi-Task Learning Framework</div>
+  </header>
+
+  <!-- PIPELINE -->
+  <div class="pipeline">
+    <div class="pipe-step s1">
+      <div class="step-icon">📝</div>
+      <div class="step-label">Input</div>
+      <div class="step-name">Raw Text</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step s1">
+      <div class="step-icon">🔤</div>
+      <div class="step-label">Tokenize</div>
+      <div class="step-name">RoBERTa Tokens</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step s2">
+      <div class="step-icon">🧠</div>
+      <div class="step-label">Encode</div>
+      <div class="step-name">RoBERTa-Base</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step s3">
+      <div class="step-icon">🌲</div>
+      <div class="step-label">Parse</div>
+      <div class="step-name">Syntax Bias</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step s4">
+      <div class="step-icon">⚡</div>
+      <div class="step-label">Multi-Task</div>
+      <div class="step-name">ATE + ASC</div>
+    </div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step s5">
+      <div class="step-icon">📊</div>
+      <div class="step-label">Output</div>
+      <div class="step-name">Aspects + Sentiment</div>
+    </div>
+  </div>
+
+  <!-- MAIN ARCH GRID -->
+  <div class="arch-grid">
+
+    <!-- LEFT: DATA INPUT -->
+    <div class="card card-input">
+      <div class="card-title"><div class="dot"></div>Data & Preprocessing</div>
+      <div class="input-steps">
+        <div class="input-step">
+          <div class="num">01</div>
+          <div class="content">
+            <div class="title">absa_30000.csv</div>
+            <div class="desc">~30K social media sentences · aspect + polarity labels</div>
+          </div>
+        </div>
+        <div class="input-step">
+          <div class="num">02</div>
+          <div class="content">
+            <div class="title">train.xml / test.xml</div>
+            <div class="desc">SemEval-2014 · ~3,000 train / ~800 test · restaurant reviews</div>
+          </div>
+        </div>
+        <div class="input-step">
+          <div class="num">03</div>
+          <div class="content">
+            <div class="title">Cleaning & Normalisation</div>
+            <div class="desc">Remove URLs, noise, symbols common in social media</div>
+          </div>
+        </div>
+        <div class="input-step">
+          <div class="num">04</div>
+          <div class="content">
+            <div class="title">BIO Tag Conversion</div>
+            <div class="desc">Begin-Inside-Outside format for sequence labelling</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER: CORE MODEL -->
+    <div class="card card-core">
+      <div class="card-title"><div class="dot"></div>Core Model Architecture</div>
+
+      <div class="roberta-box">
+        <div class="rb-title">RoBERTa-base</div>
+        <div class="rb-sub">Pre-trained Transformer Encoder · 12 layers · 768-dim</div>
+      </div>
+
+      <div class="transformer-layers">
+        <div class="tl attn">
+          <div class="tl-icon">🔄</div>
+          <div>
+            <div class="tl-name">Multi-Head Self-Attention</div>
+            <div class="tl-desc">Contextualised token representations</div>
+          </div>
+        </div>
+        <div class="tl syntax">
+          <div class="tl-icon">🌿</div>
+          <div>
+            <div class="tl-name">Syntax-Aware Attention Bias</div>
+            <div class="tl-desc">spaCy dependency weights injected into attention scores</div>
+          </div>
+        </div>
+        <div class="tl ffn">
+          <div class="tl-icon">⚙️</div>
+          <div>
+            <div class="tl-name">Feed-Forward Network</div>
+            <div class="tl-desc">Position-wise transformation</div>
+          </div>
+        </div>
+        <div class="tl attn">
+          <div class="tl-icon">🔗</div>
+          <div>
+            <div class="tl-name">Shared Encoder Backbone</div>
+            <div class="tl-desc">Joint feature space for both tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="embed-badge">
+        token embeddings → [CLS] t₁ t₂ … tₙ [SEP] · 768-dim vectors
+      </div>
+    </div>
+
+    <!-- RIGHT: SYNTAX -->
+    <div class="card card-syntax">
+      <div class="card-title"><div class="dot"></div>Syntax Processing (spaCy)</div>
+
+      <div class="dep-tree">
+        <span class="word">food</span> <span class="rel">─nsubj→</span> <span class="word">was</span><br>
+        <span class="word">was</span> <span class="rel">─acomp→</span> <span class="word">great</span><br>
+        <span class="word">service</span> <span class="rel">─nsubj→</span> <span class="word">slow</span>
+      </div>
+
+      <div class="bias-matrix">
+        <div class="bm-cell hi">1.0</div><div class="bm-cell med">0.8</div><div class="bm-cell lo">0.1</div><div class="bm-cell lo">0.0</div>
+        <div class="bm-cell med">0.8</div><div class="bm-cell hi">1.0</div><div class="bm-cell med">0.7</div><div class="bm-cell lo">0.1</div>
+        <div class="bm-cell lo">0.1</div><div class="bm-cell med">0.7</div><div class="bm-cell hi">1.0</div><div class="bm-cell lo">0.2</div>
+        <div class="bm-cell lo">0.0</div><div class="bm-cell lo">0.1</div><div class="bm-cell lo">0.2</div><div class="bm-cell hi">1.0</div>
+      </div>
+      <div class="matrix-label">Syntax-Aware Attention Bias Matrix</div>
+    </div>
+
+    <!-- BOTTOM-LEFT: TRAINING -->
+    <div class="card card-training">
+      <div class="card-title"><div class="dot"></div>Training &amp; Optimisation</div>
+
+      <div class="loss-formula">
+        <span>L_total</span> <span class="eq"> = </span> <span>α·L_ATE</span> <span class="eq"> + </span> <span>(1−α)·L_ASC</span>
+      </div>
+
+      <div class="opt-badges">
+        <div class="opt-badge">Adam Optimizer</div>
+        <div class="opt-badge">Cross-Entropy Loss</div>
+        <div class="opt-badge">Mini-Batch SGD</div>
+        <div class="opt-badge">Dropout Reg.</div>
+        <div class="opt-badge">Gradient Clipping</div>
+        <div class="opt-badge">Early Stopping</div>
+        <div class="opt-badge">Loss Balancing α</div>
+        <div class="opt-badge">Syntax Bias λ</div>
+      </div>
+    </div>
+
+    <!-- BOTTOM-RIGHT: METRICS -->
+    <div class="card card-metrics">
+      <div class="card-title"><div class="dot"></div>Evaluation Metrics</div>
+      <div class="metric-row">
+        <div class="metric-name">Accuracy</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width:88%"></div></div>
+        <div class="metric-val">ACC</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-name">Precision</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width:82%"></div></div>
+        <div class="metric-val">P</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-name">Recall</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width:80%"></div></div>
+        <div class="metric-val">R</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-name">Macro-F1</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width:79%"></div></div>
+        <div class="metric-val">F1</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-name">Weighted-F1</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width:85%"></div></div>
+        <div class="metric-val">wF1</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-name">ATE F1</div>
+        <div class="metric-bar-wrap"><div class="metric-bar" style="width:83%"></div></div>
+        <div class="metric-val">ATE</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- OUTPUT HEADS -->
+  <div class="arch-grid" style="grid-template-columns:1fr 1fr; grid-template-rows: auto; margin-bottom:24px;">
+
+    <div class="card" style="border-color:#2a4a3a; animation-delay:0.5s;">
+      <div class="card-title"><div class="dot" style="background:var(--accent2)"></div>Task 1 · Aspect Term Extraction (ATE)</div>
+      <div class="head-box ate">
+        <div class="hb-title">Sequence Labelling Head</div>
+        <div class="hb-sub">BIO tagging for aspect boundary detection</div>
+        <div class="bio-tags">
+          <div class="bio-tag O">O</div>
+          <div class="bio-tag B">B-ASP</div>
+          <div class="bio-tag I">I-ASP</div>
+          <div class="bio-tag O">O</div>
+          <div class="bio-tag B">B-ASP</div>
+          <div class="bio-tag O">O</div>
+          <div class="bio-tag O">O</div>
+        </div>
+      </div>
+      <div style="font-size:11px; color:var(--text-dim);">Example: "The <strong style="color:var(--accent2)">food quality</strong> was good but <strong style="color:var(--accent2)">service</strong> was slow."</div>
+    </div>
+
+    <div class="card" style="border-color:#3a2a5a; animation-delay:0.55s;">
+      <div class="card-title"><div class="dot" style="background:#c07aff"></div>Task 2 · Aspect Sentiment Classification (ASC)</div>
+      <div class="head-box asc">
+        <div class="hb-title">Classification Head</div>
+        <div class="hb-sub">Polarity prediction per extracted aspect</div>
+        <div class="sent-tags">
+          <div class="sent-tag pos">✓ Positive</div>
+          <div class="sent-tag neg">✗ Negative</div>
+          <div class="sent-tag neu">– Neutral</div>
+        </div>
+      </div>
+      <div style="font-size:11px; color:var(--text-dim);">food quality → <strong style="color:var(--accent2)">Positive</strong> · service → <strong style="color:var(--accent3)">Negative</strong></div>
+    </div>
+
+  </div>
+
+  <div class="caption">
+    <strong>Figure 1.</strong> Full architecture of the Syntax-Aware K-Tran Transformer for ABSA. 
+    The model integrates a RoBERTa-base encoder with spaCy-derived dependency attention bias, 
+    trained jointly on Aspect Term Extraction and Aspect Sentiment Classification via weighted cross-entropy loss.
+  </div>
+
+</div>
+</body>
+</html>

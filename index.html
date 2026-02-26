@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Kumar · Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="nav-logo">Rohit Kumar<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#cv">CV</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="mailto:rohit.xeel@gmail.com" class="nav-cta">Hire</a>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-tag">Available for opportunities</div>
+                <!-- <h1>
+                    Software<br>
+                    <span class="accent">Engineer</span><br>
+                    <!-- <span class="line2">Singh</span> -->
+                </h1>
+                <h1 style="animation: breathe 3.5s ease-in-out infinite; display: inline-block;">
+                    Software<br>
+                    <span class="accent">Engineer</span><br>
+                    <!-- <span class="line2">Singh</span> -->
+                </h1>
+
+                <style>
+                    @keyframes breathe {
+                        0% {
+                            transform: scale(1);
+                            opacity: 0.95;
+                        }
+                        50% {
+                            transform: scale(1.05);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: scale(1);
+                            opacity: 0.95;
+                        }
+                    }
+                </style>
+                <p class="hero-desc">
+                    Computer Science Engineer specialising in Data Engineering, Machine Learning, and Full-Stack Development. Currently: <strong style="color:var(--accent2)" id="typed-role"></strong><span style="color:var(--accent);animation:blink 1s infinite">|</span>
+                </p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn-primary">View Projects</a>
+                    <a href="assets/docs/RohitKumar_CV.pdf" download class="btn-download">⬇ Download CV</a>
+                    <a href="#contact" class="btn-ghost">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-photo-wrap">
+                <div class="hero-photo-frame">
+                    <img src="assets/images/pic.jpeg" alt="Rohit Kumar Singh">
+                </div>
+                <div class="photo-corner tl"></div>
+                <div class="photo-corner tr"></div>
+                <div class="photo-corner bl"></div>
+                <div class="photo-corner br"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <div class="section-inner">
+            <div class="section-label">Expertise</div>
+            <h2>Skills & Tools</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-card-title">Languages</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span><span class="skill-tag">Scala</span>
+                        <span class="skill-tag">SQL</span><span class="skill-tag">Java</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-title">Frameworks</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PySpark</span><span class="skill-tag">Spark (Scala)</span>
+                        <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-title">Tools & Platforms</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Tableau</span><span class="skill-tag">Hadoop</span>
+                        <span class="skill-tag">Spark Shell</span><span class="skill-tag">Gradio</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-title">Soft Skills</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Team Player</span>
+                        <span class="skill-tag">Project Mgmt</span>
+                        <span class="skill-tag">Adaptability</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="section-inner">
+            <div class="section-label">Work</div>
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+
+                <a href="pages/syntax_ktran_architecture.html" class="project-card">
+                    <div class="project-thumb">
+                        <img src="assets/images/ktran_flowchart.png" alt="ABSA Architecture">
+                    </div>
+                    <div class="project-body">
+                        <div class="project-num">01 · November 2025</div>
+                        <div class="project-title">Aspect-Based Sentiment Analysis</div>
+                        <div class="project-desc">K-Tran: syntax-aware transformer extending RoBERTa with spaCy dependency attention for joint aspect extraction and sentiment classification.</div>
+                        <div class="project-stack">
+                            <span class="project-tag">RoBERTa</span><span class="project-tag">spaCy</span>
+                            <span class="project-tag">Gradio</span><span class="project-tag">SemEval-2014</span>
+                        </div>
+                        <div class="project-link">View Details →</div>
+                    </div>
+                </a>
+
+                <a href="pages/project-energy.html" class="project-card">
+                    <div class="project-thumb">
+                        <div class="project-thumb-icon">⚡</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-num">02 · September 2025</div>
+                        <div class="project-title">Energy Consumption Analysis</div>
+                        <div class="project-desc">Linear regression model to identify key factors influencing energy usage and forecast future consumption trends from historical data.</div>
+                        <div class="project-stack">
+                            <span class="project-tag">PySpark</span><span class="project-tag">Tableau</span>
+                            <span class="project-tag">Matplotlib</span><span class="project-tag">Tableau Prep</span>
+                        </div>
+                        <div class="project-link">View Details →</div>
+                    </div>
+                </a>
+
+                <a href="pages/project-grocery.html" class="project-card">
+                    <div class="project-thumb">
+                        <div class="project-thumb-icon">🛒</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-num">03 · February 2023</div>
+                        <div class="project-title">Online Groceries Website</div>
+                        <div class="project-desc">Responsive online grocery platform with product listings, search, and client-side cart built entirely with vanilla front-end technologies.</div>
+                        <div class="project-stack">
+                            <span class="project-tag">HTML</span><span class="project-tag">CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                        </div>
+                        <div class="project-link">View Details →</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CV DOWNLOAD -->
+    <section id="cv">
+        <div class="section-inner">
+            <div class="section-label">Resume</div>
+            <h2>Curriculum Vitae</h2>
+            <div class="cv-card">
+                <div class="cv-info">
+                    <div class="cv-icon">📄</div>
+                    <div class="cv-title">Rohit Kumar Singh — CV</div>
+                    <div class="cv-desc">Full resume covering education, projects, certifications, technical skills, and community achievements. Updated November 2025.</div>
+                    <div class="cv-meta">
+                        <span class="cv-badge">PDF Format</span>
+                        <span class="cv-badge">B.Tech · CSE · LPU</span>
+                        <span class="cv-badge">Updated 2025</span>
+                    </div>
+                </div>
+                <div class="cv-actions">
+                    <a href="assets/docs/RohitKumar_CV.pdf" download="RohitKumar_CV.pdf" class="btn-cv-download">
+          ⬇ &nbsp;Download CV
+        </a>
+                    <a href="#" id="openCvPreview" class="btn-cv-preview">
+          👁 &nbsp;Preview CV
+        </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+        <div class="section-inner">
+            <div class="section-label">Academic</div>
+            <h2>Education</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <div class="year">2022 – Present</div>
+                    <div class="inst">Lovely Professional University</div>
+                    <div class="deg">B.Tech – Computer Science & Engineering · CGPA: 7.59</div>
+                </div>
+                <div class="edu-card">
+                    <div class="year">2020 – 2022</div>
+                    <div class="inst">ABR Foundation School</div>
+                    <div class="deg">Intermediate · Sasaram, Bihar</div>
+                </div>
+                <div class="edu-card">
+                    <div class="year">2020</div>
+                    <div class="inst">ABR Foundation School</div>
+                    <div class="deg">Matriculation · Sasaram, Bihar</div>
+                </div>
+                <div class="edu-card">
+                    <div class="year">February 2023</div>
+                    <div class="inst">HitBullseye</div>
+                    <div class="deg">Training – Data Structures & Algorithms with C++</div>
+                </div>
+            </div>
+
+            <div class="section-label" style="margin-top:56px;">Certifications</div>
+            <h2 style="margin-bottom:0">Certificates</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-icon">☁️</div>
+                    <div>
+                        <div class="cert-name">Oracle Cloud Infrastructure 2025</div>
+                        <div class="cert-date">October 2025</div>
+                        <div class="cert-desc">Certified Data Science Professional — OCI ML workflows, model deployment, cloud analytics.</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🧪</div>
+                    <div>
+                        <div class="cert-name">Software Testing & Automation</div>
+                        <div class="cert-date">September 2025</div>
+                        <div class="cert-desc">Manual & automated testing, test case design, debugging and QA practices.</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🌐</div>
+                    <div>
+                        <div class="cert-name">Cloud Computing – NPTEL</div>
+                        <div class="cert-date">March 2025</div>
+                        <div class="cert-desc">Cloud services, deployment models, architecture, and security fundamentals.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements">
+        <div class="section-inner">
+            <div class="section-label">Impact</div>
+            <h2>Achievements</h2>
+            <div class="ach-list">
+                <div class="ach-item">
+                    <div class="ach-icon">🤝</div>
+                    <div>
+                        <div class="ach-title">Led food wastage management initiatives at ground level with NGO SABAL, contributing to efficient food distribution and reduction efforts.</div>
+                        <div class="ach-date">July 2023</div>
+                    </div>
+                </div>
+                <div class="ach-item">
+                    <div class="ach-icon">🩸</div>
+                    <div>
+                        <div class="ach-title">Organised and participated in a blood donation camp, promoting community health and social responsibility.</div>
+                        <div class="ach-date">July 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="section-inner">
+            <div class="section-label">Connect</div>
+            <h2>Get In Touch</h2>
+            <p class="contact-sub">Open to internships, collaborations, and full-time roles in data engineering and ML.</p>
+            <div class="contact-links">
+                <a href="mailto:rohit.xeel@gmail.com" class="contact-link">✉️ &nbsp;rohit.xeel@gmail.com</a>
+                <a href="https://www.linkedin.com/in/-rohitkumarsingh/" target="_blank" class="contact-link">💼 &nbsp;LinkedIn</a>
+                <a href="https://github.com/rohitxeel" target="_blank" class="contact-link">🐙 &nbsp;GitHub</a>
+                <a href="tel:+917970529481" class="contact-link">📱 &nbsp;+91-7970529481</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <span>© 2025 Rohit Kumar Singh</span>
+        <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;">Built with passion · LPU CSE</span>
+    </footer>
+
+    <!-- CV MODAL -->
+    <div class="cv-modal" id="cvModal">
+        <div class="cv-modal-inner">
+            <div class="cv-modal-bar">
+                <span class="cv-modal-title">📄 RohitKumar_CV.pdf</span>
+                <button class="cv-modal-close" id="closeCvModal">✕</button>
+            </div>
+            <div class="cv-modal-body">
+                <iframe src="assets/docs/RohitKumar_CV.pdf" title="Rohit Kumar CV"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1
+            }
+            50% {
+                opacity: 0
+            }
+        }
+        
+        .nav-links a.active {
+            color: var(--accent);
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+    </style>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

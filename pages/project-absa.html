@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABSA Project · Rohit Kumar</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/project.css">
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+  <a href="../index.html" class="nav-logo" style="text-decoration:none">RK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html#projects">← Projects</a></li>
+    <li><a href="../index.html#cv">Download CV</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+  <a href="../assets/docs/RohitKumar_CV.pdf" download class="nav-cta">⬇ CV</a>
+</nav>
+
+<div class="page-hero">
+  <div class="project-badge">Project 01 · November 2025</div>
+  <h1>Aspect-Based<br><span>Sentiment Analysis</span><br>Model</h1>
+  <div class="hero-meta">
+    <span class="meta-pill">NLP</span>
+    <span class="meta-pill">Transformer</span>
+    <span class="meta-pill">Multi-Task Learning</span>
+    <span class="meta-pill">SemEval-2014</span>
+  </div>
+  <p class="hero-desc">Developed K-Tran — a syntax-aware transformer extending RoBERTa with spaCy-based dependency attention. Implements joint Aspect Term Extraction and Sentiment Classification with a Gradio interface for real-time evaluation.</p>
+</div>
+
+<!-- FLOWCHART -->
+<div class="content-wrap">
+  <div class="proj-section-label">Architecture</div>
+  <h2>System Flowchart</h2>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 0 60px rgba(0,200,255,0.07);">
+    <img src="../assets/images/ktran_flowchart.png" alt="K-Tran Architecture Flowchart" style="width:100%;display:block;">
+    <div style="padding:14px 24px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);border-top:1px solid var(--border);text-align:center;">
+      Fig 1. End-to-end pipeline of the Syntax-Aware K-Tran model · ATE = Aspect Term Extraction · ASC = Aspect Sentiment Classification
+    </div>
+  </div>
+</div>
+
+<!-- DETAILS -->
+<div class="content-wrap">
+  <div class="two-col">
+    <div class="info-card">
+      <div class="card-title">Objective</div>
+      <p>Develop an advanced ABSA system identifying aspect terms and their corresponding sentiments with high precision by integrating syntactic dependency information into transformer attention mechanisms.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Tech Stack</div>
+      <div class="stack-tags">
+        <span class="stack-tag">RoBERTa-base</span><span class="stack-tag">spaCy</span>
+        <span class="stack-tag">Python</span><span class="stack-tag">Gradio</span>
+        <span class="stack-tag">SemEval-2014</span><span class="stack-tag">PyTorch</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Key Features</div>
+      <ul>
+        <li>Syntax-aware attention bias matrix from spaCy parse trees</li>
+        <li>Joint multi-task learning for ATE and ASC simultaneously</li>
+        <li>BIO tagging scheme for aspect boundary detection</li>
+        <li>Weighted loss: L = α·L_ATE + (1−α)·L_ASC</li>
+        <li>Real-time evaluation via Gradio interface</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Datasets</div>
+      <ul>
+        <li>absa_30000.csv — ~30K annotated social media sentences</li>
+        <li>train.xml — ~3,000 SemEval-2014 restaurant reviews</li>
+        <li>test.xml — ~800 SemEval-2014 test sentences</li>
+        <li>Labels: Positive / Negative / Neutral polarity</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="content-wrap">
+  <div class="outcome-banner">
+    <div class="ob-label">Outcome</div>
+    <p>Demonstrated improved multi-aspect sentiment understanding and more accurate sentiment classification by effectively leveraging syntactic and contextual relationships within text. Evaluated on Accuracy, Precision, Recall, Macro-F1, Weighted F1 and ATE F1-score.</p>
+  </div>
+</div>
+
+<a href="../index.html" class="back-btn">← Back to Portfolio</a>
+
+<script src="../assets/js/project.js"></script>
+</body>
+</html>
